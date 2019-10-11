@@ -67,6 +67,7 @@ function App() {
             console.log('@@@ del in mid');
             // move cursor at the end and allow user deletes there, not delete in the middle
             inputRef.current.setSelectionRange(e.target.value.length, e.target.value.length);
+            //e.preventDefault();
           }
         }
       }}
