@@ -2,6 +2,7 @@ import React, {useState, useRef} from "react";
 
 function App() {
   const prevDateFromRef = useRef('');
+  const inputRef = useRef(null);
   const [fromDate, setFromDate] = useState('');
 
   const checkDateValue = (str, max) => {
@@ -20,7 +21,6 @@ function App() {
 
   // user input
   const formatInputDate = (input) => {
-    // from date
     if (
       prevDateFromRef.current.length > input.length &&
       /\d\/$/.test(prevDateFromRef.current)
@@ -51,10 +51,31 @@ function App() {
 
   return <div className="App">
     <input
+      ref={inputRef}
+      // id
       id="fromDate"
+      // guide
       placeholder={'DD/MM/YYYY'}
+
+      onKeyDown={(e) => {
+        e.preventDefault();
+
+        // detect the del key
+        if (e.keyCode === 8) {
+          console.log('-- delete --');
+          if(e.target.selectionStart !== 0 || e.target.selectionStart !== e.target.value.length) {
+            // del in mid
+            console.log('@@@ del in mid');
+            // move cursor at the end and allow user deletes there, not delete in the middle
+            this.inputRef.setSelectionRange(e.target.value.length, e.target.value.length);
+          }
+        }
+      }}
+
+      // on change
       onChange={event => {
-        // output date
+        //test
+        console.log('==== on change + del as well === ');
         let outputDate = formatInputDate(event.target.value);
    
         // set from date val
