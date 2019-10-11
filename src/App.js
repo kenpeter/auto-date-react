@@ -62,23 +62,30 @@ function App() {
         // detect the del key
         if (e.keyCode === 8) {
           console.log('-- delete --');
-          if(e.target.selectionStart !== 0 || e.target.selectionStart !== e.target.value.length) {
+
+          if(e.target.selectionStart === 0 || e.target.selectionStart === e.target.value.length) {
+            console.log('~~ on edge ~~');
+            inputRef.current.focus();
+          } else {
             // del in mid
-            console.log('@@@ del in mid');
+            console.log('$$$$$$ e.target.selectionStart', e.target.selectionStart, 'e.target.value.length', e.target.value.length);
             // move cursor at the end and allow user deletes there, not delete in the middle
             inputRef.current.setSelectionRange(e.target.value.length, e.target.value.length);
-            //e.preventDefault();
+            console.log('e.preventDefault');
+            e.preventDefault();
           }
         }
       }}
 
       // on change
       onChange={event => {
+        event.preventDefault();
+
         //test
         console.log('==== on change + del as well === ');
+
         let outputDate = formatInputDate(event.target.value);
-   
-        // set from date val
+        // set
         setFromDate(outputDate);
       }}
       value={fromDate}
