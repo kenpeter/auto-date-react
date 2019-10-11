@@ -58,8 +58,7 @@ function App() {
       placeholder={'DD/MM/YYYY'}
 
       onKeyDown={(e) => {
-        e.preventDefault();
-
+        
         // detect the del key
         if (e.keyCode === 8) {
           console.log('-- delete --');
@@ -67,7 +66,7 @@ function App() {
             // del in mid
             console.log('@@@ del in mid');
             // move cursor at the end and allow user deletes there, not delete in the middle
-            this.inputRef.setSelectionRange(e.target.value.length, e.target.value.length);
+            inputRef.current.setSelectionRange(e.target.value.length, e.target.value.length);
           }
         }
       }}
